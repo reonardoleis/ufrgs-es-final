@@ -1,20 +1,18 @@
+const Courtain = require(".././models/Courtain");
+
+const STATES = {
+    "OPENED": "OPENED",
+    "CLOSED": "CLOSED"
+}
+
+
 const courtainDB = [
-    {
-        id: 1,
-        name: "Cortina da Sala",
-        state: "CLOSED",
-        speed: 5.5
-    },
-    {
-        id: 2,
-        name: "Cortina do Quarto",
-        state: "OPENED",
-        speed: 3
-    }
+    new Courtain(1, "Cortina da Sala", STATES.CLOSED, 5.5),
+    new Courtain(2, "Cortina do Quarto", STATES.OPENED, 3)
 ];
 
 class CourtainRepository {
-    constructor() {}
+    constructor() { }
 
     getAll() {
         return courtainDB;
@@ -25,19 +23,24 @@ class CourtainRepository {
     }
 
     setCourtainState(courtainId, courtainState) {
-        if (this.find(courtainId)) {
-            return courtainDB[courtainId].state = courtainState;
-        } else {
-            return false;
+        let courtain = this.find(courtainId);
+        if (courtain) {
+            if (!STATES[courtainState]) {
+                return true;
+            }
+            courtain.setState(courtainState);
+            return true
         }
+        return false;
     }
 
-    setCourtainState(courtainId, courtainSpeed) {
-        if (this.find(courtainId)) {
-            return courtainDB[courtainId].speed = courtainSpeed;
-        } else {
-            return false;
+    setCourtainSpeed(courtainId, courtainSpeed) {
+        let courtain = this.find(courtainId);
+        if (courtain) {
+            courtain.setSpeed(courtainSpeed);
+            return true
         }
+        return false;
     }
 }
 
