@@ -1,13 +1,33 @@
+require("dotenv").config();
+const Logger = require("../logger/Logger");
+
 class Mattress {
-    constructor(id, name, temperatureSensorId, targetTemperature) {
+    constructor(id, name, temperatureSensor, humiditySensor, sleepQualitySensor, targetTemperature) {
         this.id = id;
         this.name = name;
-        this.temperatureSensorId = temperatureSensorId;
+        this.temperatureSensor = temperatureSensor;
+        this.humiditySensor = humiditySensor;
+        this.sleepQualitySensor = sleepQualitySensor;
         this.targetTemperature = targetTemperature;
+        setInterval(() => {
+            if (this.targetTemperature != 0) {
+                this.targetTemperature = this.computeBestTemperature();
+            }
+        }, 1000);
     }
 
     setTargetTemperature(targetTemperature) {
         this.targetTemperature = targetTemperature;
+    }
+
+    computeBestTemperature() {
+        if (Math.abs(this.targetTemperature - this.temperatureSensor.getCurrentTemperature()) >= process.env.MAX_TEMP_DIFF || 2) {
+            Logger.log(`setting new target temperature of mattress ${this.id}`);
+            let bestTemperature = this.targetTemperature + ((this.humiditySensor.level - 50) * 0.05);
+            this.temperatureSensor.setTemperature(bestTemperature);
+            return bestTemperature;
+        }
+        return this.targetTemperature;
     }
 }
 

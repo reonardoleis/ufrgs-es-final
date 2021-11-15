@@ -4,31 +4,49 @@ const CoffeeMachineRepository = new (require(".././repositories/CoffeeMachineRep
 class MorningController {
     constructor() {}
 
+    getCourtainData(req, res) {
+       try {
+        let courtain = CourtainRepository.find(req.params.id);
+        courtain = courtain.cloneWithoutCircularReferences();
+        return res.json(courtain);
+       } catch (e) {
+           return res.status(e.code).json(e);
+       }
+    }
+
     getAllCourtains(req, res) {
         let courtains = CourtainRepository.getAll()
         return res.json(courtains);
     }
 
     setCourtainState(req, res) {
-        let result = CourtainRepository.setCourtainState(req.body.courtainId, req.body.courtainState);
-    
-        if (!result) {
-            return res.status(404).json({ message: "courtain not found" });
+        try {
+            let courtain = CourtainRepository.find(req.body.courtainId);
+            courtain.setState(req.body.courtainState);
+            return res.json(courtain);
+        } catch (e) {
+            return res.status(e.code).json(e);
         }
-
-        let courtain = CourtainRepository.find(req.body.courtainId);
-        return res.json(courtain);
     }
 
     setCourtainSpeed(req, res) {
-        let result = CourtainRepository.setCourtainSpeed(req.body.courtainId, req.body.courtainSpeed);
-    
-        if (!result) {
-            return res.status(404).json({ message: "courtain not found" });
+        try {
+            let courtain = CourtainRepository.find(req.body.courtainId);
+            courtain.setSpeed(req.body.courtainSpeed);
+            return res.json(courtain);
+        } catch (e) {
+            return res.status(e.code).json(e);
         }
+    }
 
-        let courtain = CourtainRepository.find(req.body.courtainId);
-        return res.json(courtain);
+    scheduleCourtain(req, res) {
+        try {
+            let courtain = CourtainRepository.find(req.body.courtainId);
+            courtain.scheduleStateWithSpeed(req.body.courtainState, req.body.courtainSpeed, req.body.startTimestamp);
+            return res.json({ message: `courtain scheduled to open at ${(new Date(req.body.startTimestamp)).toLocaleString()} with ${req.body.courtainSpeed} speed`});
+        } catch (e) {
+            return res.status(e.code).json(e);
+        }
     }
 
     getAllCoffeeMachines(req, res) {
@@ -37,40 +55,32 @@ class MorningController {
     }
 
     makeCoffee(req, res) {
-        let coffeeMachine = CoffeeMachineRepository.find(req.body.coffeeMachineId);
-        if (!coffeeMachine) {
-            return res.status(404).json({ message: "coffee machine not found" })
+        try {
+            let coffeeMachine = CoffeeMachineRepository.find(req.body.coffeeMachineId);
+            let result = coffeeMachine.makeCoffee(req.body.slot);
+            return res.json({ estimatedTime: result });
+        } catch (e) {
+            return res.status(e.code).json(e)
         }
-
-        let result = coffeeMachine.makeCoffee(req.body.slot);
-        if (!result) {
-            return res.status(412).json({ message: "selected slot does not contains a capsule"});
-        }
-
-        return res.json({ estimatedTime: result });
     }
 
     scheduleMakeCoffee(req, res) {
-        let coffeeMachine = CoffeeMachineRepository.find(req.body.coffeeMachineId);
-        if (!coffeeMachine) {
-            return res.status(404).json({ message: "coffee machine not found" })
+        try {
+            let coffeeMachine = CoffeeMachineRepository.find(req.body.coffeeMachineId);
+            let result = coffeeMachine.scheduleMakeCoffee(req.body.slot, req.body.startTimestamp);
+            return res.json({ estimatedTime: result });
+        } catch (e) {
+            return res.status(e.code).json(e);
         }
-
-        let result = coffeeMachine.scheduleMakeCoffe(req.body.slot, req.body.startTimestamp);
-        if (!result) {
-            return res.status(412).json({ message: "selected slot does not contains a capsule"});
-        }
-
-        return res.json({ estimatedTime: result });
     }
 
     getCoffeeMachineData(req, res) {
-        let coffeeMachine = CoffeeMachineRepository.find(req.params.id);
-        if (!coffeeMachine) {
-            return res.status(404).json({ message: "coffee machine not found" })
+        try {
+            let coffeeMachine = CoffeeMachineRepository.find(req.params.id);
+            return res.json(coffeeMachine);
+        } catch (e) {
+            return res.status(e.code).json(e);
         }
-
-        return res.json(coffeeMachine);
     }
 }
 

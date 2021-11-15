@@ -1,3 +1,4 @@
+const CustomException = require("../exceptions/CustomException");
 const Capsule = require("../models/Capsule");
 const CoffeeMachine = require("../models/CoffeeMachine");
 
@@ -14,7 +15,12 @@ class CoffeeMachineRepository {
     }
 
     find(coffeeMachineId) {
-        return coffeMachineDB[coffeeMachineId - 1];
+        let coffeeMachine = coffeMachineDB[coffeeMachineId - 1];
+        
+        if  (!coffeeMachine) {
+            throw new CustomException("coffee machine not found", 404);
+        }
+        return coffeeMachine;
     }
 }
 

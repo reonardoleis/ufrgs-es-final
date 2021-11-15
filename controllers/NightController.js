@@ -1,4 +1,5 @@
 const MattressRepository = new (require(".././repositories/MattressRepository"));
+const SpeakerRepository = new (require(".././repositories/SpeakerRepository"));
 
 class NightController {
     constructor() { }
@@ -8,23 +9,59 @@ class NightController {
     }
 
     getMattress(req, res) {
-        let result = MattressRepository.find(req.params.id);
-        if (!result) {
-            return res.status(404).send({ message: "Mattress not found" });
+        try {
+            let mattress = MattressRepository.find(req.params.id);
+            return res.json(mattress);
+        } catch(e) {
+            return res.status(e.code).json(e);
         }
-
-        return res.json(result);
     }
 
     setMattressTemperature(req, res) {
-        let result = MattressRepository.updateTargetTemperature(req.body.mattressId, req.body.temperature);
-        if (!result) {
-            return res.status(404).send({ message: "Mattress not found" });
+        try {
+            let mattress = MattressRepository.find(req.body.mattressId);
+            mattress.setTargetTemperature(req.body.targetTemperature);
+            return res.json(mattress);
+        } catch (e) {
+            return res.status(e.code).json(e);
         }
-
-        let foundMattress = MattressRepository.find(req.body.mattressId);
-        return res.json(foundMattress);
     }
+
+    getAllSpeakers(req, res) {
+        let speakers = SpeakerRepository.getAll();
+        return res.json(speakers);
+    }
+
+    getSpeakerData(req, res) {
+        try {
+            let speaker = SpeakerRepository.find(req.params.id);
+            return res.json(speaker);
+        } catch (e) {
+            return res.status(e.code).json(e);
+        }
+    }
+
+    playSound(req, res) {
+        try {
+            let speaker = SpeakerRepository.find(req.body.speakerId);
+            speaker.play();
+            console.log(speaker);
+            return res.json(speaker);
+        } catch (e) {
+            return res.status(e.code).json(e);
+        }
+    }
+
+    stopSound(req, res) {
+        try {
+            let speaker = SpeakerRepository.find(req.body.speakerId);
+            speaker.stop();
+            return res.json(speaker);
+        } catch (e) {
+            return res.status(e.code).json(e);
+        }
+    }
+
 }
 
 module.exports = NightController;

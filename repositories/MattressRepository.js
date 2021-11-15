@@ -1,42 +1,28 @@
 const Mattress = require(".././models/Mattress");
+const TemperatureSensor = require(".././models/TemperatureSensor");
+const HumiditySensor = require(".././models/HumiditySensor");
+const CustomException = require("../exceptions/CustomException");
+const SleepQualitySensor = require("../models/SleepQualitySensor");
 
 const mattressDB = [
-    new Mattress(1, "Colchão do Quarto", 1, 0),
-    new Mattress(2, "Colchão da Sala", 2, 0)
+    new Mattress(1, "Colchão do Quarto", new TemperatureSensor(), new HumiditySensor(50), new SleepQualitySensor(1), 0),
+    new Mattress(2, "Colchão da Sala", new TemperatureSensor(), new HumiditySensor(10), new SleepQualitySensor(2), 0)
 ]
-
-const TemperatureSensorRepository = new (require("./TemperatureSensorRepository"));
 
 class MattressRepository {
     constructor() {}
 
     getAll() {
-        let mattresses = mattressDB.map(mattress => {
-            mattress.temperatureSensorData = TemperatureSensorRepository.find(mattress.temperatureSensorId);
-            return mattress;
-        })
-        return mattresses;
+        return mattressDB;
     }
 
     find(mattressId) {
         let mattress = mattressDB[mattressId - 1];
         if (!mattress) {
-            return undefined;
+            throw new CustomException("mattress not found", 404);
         }
-        mattress.temperatureSensorData = TemperatureSensorRepository.find(mattress.temperatureSensorId);
+ 
         return mattress;
-    }
-
-    updateTargetTemperature(mattressId, temperature) {
-        if (this.find(mattressId)) {
-            // the two next lines are implemented in order to simulate that updating mattress target
-            // temperature really has effect on its sensor data.
-            const sensor = TemperatureSensorRepository.find(mattressDB[mattressId - 1].temperatureSensorId).sensor;
-            sensor.setTemperature(temperature);
-            mattressDB[mattressId - 1].setTargetTemperature(temperature);
-            return true;
-        }
-        return false;
     }
 }
 

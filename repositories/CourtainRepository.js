@@ -1,46 +1,26 @@
 const Courtain = require(".././models/Courtain");
-
-const STATES = {
-    "OPENED": "OPENED",
-    "CLOSED": "CLOSED"
-}
+const CustomException = require("../exceptions/CustomException");
 
 
 const courtainDB = [
-    new Courtain(1, "Cortina da Sala", STATES.CLOSED, 5.5),
-    new Courtain(2, "Cortina do Quarto", STATES.OPENED, 3)
+    new Courtain(1, "Cortina da Sala", "OPENED", "SLOW"),
+    new Courtain(2, "Cortina do Quarto", "CLOSED", "FAST")
 ];
 
 class CourtainRepository {
     constructor() { }
 
     getAll() {
-        return courtainDB;
+        return courtainDB.map(item => item.cloneWithoutCircularReferences());
     }
 
     find(courtainId) {
-        return courtainDB[courtainId - 1];
-    }
-
-    setCourtainState(courtainId, courtainState) {
-        let courtain = this.find(courtainId);
-        if (courtain) {
-            if (!STATES[courtainState]) {
-                return true;
-            }
-            courtain.setState(courtainState);
-            return true
+        let courtain = courtainDB[courtainId - 1];
+        if (!courtain) {
+            throw new CustomException("courtain not found", 404);
         }
-        return false;
-    }
 
-    setCourtainSpeed(courtainId, courtainSpeed) {
-        let courtain = this.find(courtainId);
-        if (courtain) {
-            courtain.setSpeed(courtainSpeed);
-            return true
-        }
-        return false;
+        return courtain;
     }
 }
 
