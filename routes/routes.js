@@ -1,6 +1,9 @@
 const MorningController = new (require(".././controllers/MorningController"));
 const AfternoonController = new (require(".././controllers/AfternoonController"));
 const NightController = new (require(".././controllers/NightController"));
+const express = require('express');
+const path = require('path');
+
 
 class Routes {
     constructor(app) {
@@ -32,6 +35,9 @@ class Routes {
         this.app.get("/night/speaker/:id", NightController.getSpeakerData);
         this.app.post("/night/speaker/play", NightController.playSound);
         this.app.post("/night/speaker/stop", NightController.stopSound);
+
+        this.app.use(express.static(path.join(__dirname, '../frontend/build')));
+        this.app.get('/', (req, res) => { res.sendFile(path.join(__dirname, '../frontend/build', 'index.html')) })
     }
 }
 
