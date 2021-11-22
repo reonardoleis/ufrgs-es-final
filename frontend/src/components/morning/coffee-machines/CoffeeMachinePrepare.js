@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import MorningHandler from '../../../handlers/MorningHandler';
+import { toast } from 'react-toastify';
 
 class CoffeeMachinePrepare extends Component {
 
@@ -10,6 +11,8 @@ class CoffeeMachinePrepare extends Component {
     };
   }
 
+  notify(msg) { toast(msg); };
+
   componentDidMount() {
     this.setState({slot: 1});
   }
@@ -19,11 +22,18 @@ class CoffeeMachinePrepare extends Component {
   }
 
   prepareCoffee = async () => {
+    try {
     const updated = await MorningHandler.prepareCoffee({
       coffeeMachineId: this.props.id,
       slot: this.state.slot
     });
-    this.updateData(updated);
+    return this.updateData(updated);
+  } catch (e) {
+    this.notify(e.response.data.message);
+    return
+  }
+  
+   
   }
 
   updateData = (data) => {
@@ -36,6 +46,7 @@ class CoffeeMachinePrepare extends Component {
     });
     return (
       <div className="modal" tabindex="-1" id={"coffee_machine_"+this.props.id}>
+     
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">

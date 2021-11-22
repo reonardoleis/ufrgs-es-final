@@ -16,6 +16,13 @@ class CleaningRobots extends Component {
     this.setState({
       robots: robots
     });
+
+    setInterval(async() => {
+      const robots = await AfternoonHandler.getRobots();
+      this.setState({
+        robots: robots
+      });
+    }, 1000);
   }
 
   updateData = (data) => {

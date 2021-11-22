@@ -16,6 +16,13 @@ class AirDiffuser extends Component {
     this.setState({
       airDiffusers: airDiffusers
     });
+
+    setInterval(async () => {
+      const airDiffusers = await AfternoonHandler.getAirDiffusers();
+      this.setState({
+        airDiffusers: airDiffusers
+      });
+    }, 1000);
   }
 
   updateData = (data) => {
@@ -29,7 +36,7 @@ class AirDiffuser extends Component {
 
   render(){
     const elements = this.state.airDiffusers.map(airDiffuser => {
-      return <AirDiffuserItem name={airDiffuser.name} essences={airDiffuser.essences} id={String(airDiffuser.id)} currentDiffusion={airDiffuser.currentDiffusion} updateData={this.updateData}/>
+      return <AirDiffuserItem name={airDiffuser.name} essences={airDiffuser.essences} estimatedTime={airDiffuser.estimatedTime} id={String(airDiffuser.id)} currentDiffusion={airDiffuser.currentDiffusion} updateData={this.updateData}/>
     });
     return (
       <div className="card">
@@ -40,6 +47,7 @@ class AirDiffuser extends Component {
               <th scope="col">Nome</th>
               <th scope="col">Essências</th>
               <th scope="col">Essência Selecionada</th>
+              <th scope="col">Tempo estimado</th>
               <th scope="col" className="col-md-2 text-right">Ações</th>
             </tr>
           </thead>

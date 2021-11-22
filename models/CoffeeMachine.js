@@ -10,6 +10,7 @@ class CoffeeMachine {
         this.capsules = capsules;
         this.schedule = new Schedule([]);
         this.currentCapsule = null;
+        this.estimatedTime = null;
     }
 
     makeCoffee(slot) {
@@ -25,11 +26,13 @@ class CoffeeMachine {
         this.currentCapsule = capsule;
 
         let estimatedTime =  1000 * 60 * RandomUtils.randomBetween(4, 6);
+        this.estimatedTime = new Date(+ (new Date()) + estimatedTime).toLocaleString();
         setTimeout(() => {
             this.currentCapsule = null;
+            this.estimatedTime = null;
         }, estimatedTime);
 
-        return new Date(+ (new Date()) + estimatedTime).toLocaleString();
+        return this.estimatedTime;
     }
 
     scheduleMakeCoffee(slot, startTimestamp) {

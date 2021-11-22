@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import AfternoonHandler from '../../../handlers/AfternoonHandler';
+import { toast } from 'react-toastify';
 
 class AirDiffuserDiffuse extends Component {
 
@@ -19,16 +20,22 @@ class AirDiffuserDiffuse extends Component {
   }
 
   diffuseEssence = async () => {
+   try {
     const updated = await AfternoonHandler.startDiffusing({
       airDiffuserId: this.props.id,
       slot: this.state.slot
     });
     this.updateData(updated);
+   } catch (e) {
+     this.notify(e.response.data.message);
+   }
   }
 
   updateData = (data) => {
     this.props.updateData(data);
   }
+
+  notify(msg) { toast(msg); };
 
   render(){
     const items = this.props.essences.map((item,index) => {

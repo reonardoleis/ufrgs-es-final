@@ -16,6 +16,13 @@ class Courtains extends Component {
     this.setState({
       courtains: courtains
     });
+
+    setInterval(async() =>{
+      const courtains = await MorningHandler.getCourtains();
+      this.setState({
+        courtains: courtains
+      });
+    }, 1000);
   }
 
   updateData = (data) => {

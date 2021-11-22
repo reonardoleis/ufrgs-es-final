@@ -45,7 +45,6 @@ class NightController {
         try {
             let speaker = SpeakerRepository.find(req.body.speakerId);
             speaker.play();
-            console.log(speaker);
             return res.json(speaker);
         } catch (e) {
             return res.status(e.code).json(e);

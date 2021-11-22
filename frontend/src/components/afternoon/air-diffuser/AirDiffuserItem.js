@@ -19,6 +19,7 @@ class AirDiffuserItem extends Component {
         <td className="mid-align">{this.props.name}</td>
         <td className="mid-align">{this.props.essences.map(e => {return e.name}).join(", ")}</td>
         <td className="mid-align">{this.props.currentDiffusion == null ? "Nenhuma" : this.props.currentDiffusion[0].name}</td>
+        <td className="mid-align">{this.props.estimatedTime || "N/A"}</td>
         <td>
           <button type="button" className="btn btn-icon btn-outline-info float-right" data-bs-toggle="modal" data-bs-target={"#air_diffuser_schedule_"+this.props.id}>
             <BsClock/>

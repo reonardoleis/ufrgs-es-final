@@ -19,7 +19,7 @@ class MorningHandler {
   }
 
   static async prepareCoffee(prepare) {
-    await axios.post("http://localhost:3000/morning/coffee-machine/make",prepare);
+    let makeRes = await axios.post("http://localhost:3000/morning/coffee-machine/make",prepare);
     const res = await axios.get("http://localhost:3000/morning/coffee-machine/"+prepare.coffeeMachineId);
     return res.data;
   }

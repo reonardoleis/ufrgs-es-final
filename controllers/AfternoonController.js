@@ -54,7 +54,7 @@ class AfternoonController {
     startDiffusing(req, res) {
         try {
             let airDiffuser = AirDiffuserRepository.find(req.body.airDiffuserId);
-            let estimatedTime = airDiffuser.startDiffusing(req.body.slot) ;
+            let estimatedTime = airDiffuser.startDiffusing(req.body.slot);
             return res.json({ message: `started diffusing with estimated time of finish of ${estimatedTime}` });
         } catch (e) {
             return res.status(e.code).json(e)

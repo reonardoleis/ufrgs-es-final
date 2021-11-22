@@ -16,6 +16,13 @@ class Mattresses extends Component {
     this.setState({
       mattresses: mattresses
     });
+
+    setInterval(async() => {
+      const mattresses = await NightHandler.getMatresses();
+      this.setState({
+        mattresses: mattresses
+      });
+    }, 1000);
   }
 
   updateData = (data) => {

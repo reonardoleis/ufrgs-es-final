@@ -16,6 +16,13 @@ class CoffeeMachines extends Component {
     this.setState({
       coffeeMachines: coffeeMachines
     });
+
+    setInterval( async () => {
+      const coffeeMachines = await MorningHandler.getCoffeeMachines();
+      this.setState({
+      coffeeMachines: coffeeMachines
+      });
+    }, 1000);
   }
 
   updateData = (data) => {
@@ -29,7 +36,7 @@ class CoffeeMachines extends Component {
 
   render(){
     const elements = this.state.coffeeMachines.map(cm => {
-      return <CoffeeMachineItem name={cm.name} capsules={cm.capsules} currentCapsule={cm.currentCapsule} id={String(cm.id)} schedule={cm.schedule.scheduleItems} updateData={this.updateData}/>
+      return <CoffeeMachineItem name={cm.name} capsules={cm.capsules} currentCapsule={cm.currentCapsule} estimatedTime={cm.estimatedTime} id={String(cm.id)} schedule={cm.schedule.scheduleItems} updateData={this.updateData}/>
     });
     return (
       <div className="card">
@@ -40,6 +47,7 @@ class CoffeeMachines extends Component {
               <th scope="col">Nome</th>
               <th scope="col">Cápsulas</th>
               <th scope="col">Cápsula Selecionada</th>
+              <th scope="col">Finalização</th>
               <th scope="col" className="col-md-2 text-right">Ações</th>
             </tr>
           </thead>

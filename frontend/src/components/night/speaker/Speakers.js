@@ -16,6 +16,13 @@ class Speakers extends Component {
     this.setState({
       speakers: speakers
     });
+
+    setInterval(async() => {
+      const speakers = await NightHandler.getSpeakers();
+      this.setState({
+        speakers: speakers
+      });
+    }, 1000);
   }
 
   updateData = (data) => {

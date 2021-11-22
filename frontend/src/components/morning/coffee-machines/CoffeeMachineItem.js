@@ -13,12 +13,14 @@ class CoffeeMachineItem extends Component {
     this.props.updateData(data);
   }
 
+
   render(){
     return (
       <tr>
         <td className="mid-align">{this.props.name}</td>
         <td className="mid-align">{this.props.capsules.map(capsule => {return capsule.name}).join(", ")}</td>
         <td className="mid-align">{this.props.currentCapsule != null ? this.props.currentCapsule[0].name : "Nenhuma"}</td>
+        <td className="mid-align">{ this.props.estimatedTime || "N/A" }</td>
         <td>
           <button type="button" className="btn btn-icon btn-outline-primary float-right" data-bs-toggle="modal" data-bs-target={"#coffee_machine_"+this.props.id}>
             <BsCup/>
