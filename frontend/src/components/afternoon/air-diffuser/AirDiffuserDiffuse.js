@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import MorningHandler from '../../../handlers/MorningHandler';
+import AfternoonHandler from '../../../handlers/AfternoonHandler';
 
-class CoffeeMachinePrepare extends Component {
+class AirDiffuserDiffuse extends Component {
 
   constructor(props) {
     super(props);
@@ -18,35 +18,35 @@ class CoffeeMachinePrepare extends Component {
     this.setState({slot: event.target.value});
   }
 
-  prepareCoffee = async () => {
-    console.log("prepareCoffee called.");
-    const updated = await MorningHandler.prepareCoffee({
-      coffeeMachineId: this.props.id,
+  diffuseEssence = async () => {
+    console.log("diffuseEssence called.");
+    const updated = await AfternoonHandler.startDiffusing({
+      airDiffuserId: this.props.id,
       slot: this.state.slot
     });
     this.updateData(updated);
   }
 
   updateData = (data) => {
-    console.log("prepareCoffee.updateData called.");
+    console.log("diffuseEssence.updateData called.");
     this.props.updateData(data);
   }
 
   render(){
-    const items = this.props.capsules.map((item,index) => {
+    const items = this.props.essences.map((item,index) => {
       return <option value={index+1}>{item.name}</option>;
     });
     return (
-      <div className="modal" tabindex="-1" id={"coffee_machine_"+this.props.id}>
+      <div className="modal" tabindex="-1" id={"air_diffuser_"+this.props.id}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Preparar Café</h5>
+              <h5 className="modal-title">Realizar Difusão</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={this.resetState}></button>
             </div>
             <div className="modal-body">
               <div class="input-group mb-3">
-                <span class="input-group-text" for="courtain-speed">Cápsula</span>
+                <span class="input-group-text" for="courtain-speed">Essência</span>
                 <select value={this.state.slot} class="form-select" id="courtain-speed" onChange={this.changeSlot}>
                   {items}
                 </select>
@@ -54,7 +54,7 @@ class CoffeeMachinePrepare extends Component {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={this.resetState}>Fechar</button>
-              <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={this.prepareCoffee}>Preparar</button>
+              <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={this.diffuseEssence}>Confirmar</button>
             </div>
           </div>
         </div>
@@ -63,4 +63,4 @@ class CoffeeMachinePrepare extends Component {
   }
 }
 
-export default CoffeeMachinePrepare;
+export default AirDiffuserDiffuse;
