@@ -14,7 +14,6 @@ class CleaningRobotItem extends Component {
   }
 
   startCleaning = async () => {
-    console.log("startCleaning called.");
     const updated = await AfternoonHandler.startCleaning({
       robotId: this.props.id
     });

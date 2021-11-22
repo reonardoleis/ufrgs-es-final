@@ -14,7 +14,6 @@ class MattressItem extends Component {
   }
 
   setTemperature = async () => {
-    console.log("setTemperature called.");
     const updated = await NightHandler.setTemperature({
       mattressId: this.props.id
     });

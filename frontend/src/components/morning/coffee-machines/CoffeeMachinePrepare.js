@@ -19,7 +19,6 @@ class CoffeeMachinePrepare extends Component {
   }
 
   prepareCoffee = async () => {
-    console.log("prepareCoffee called.");
     const updated = await MorningHandler.prepareCoffee({
       coffeeMachineId: this.props.id,
       slot: this.state.slot
@@ -28,7 +27,6 @@ class CoffeeMachinePrepare extends Component {
   }
 
   updateData = (data) => {
-    console.log("prepareCoffee.updateData called.");
     this.props.updateData(data);
   }
 

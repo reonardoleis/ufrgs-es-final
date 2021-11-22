@@ -13,7 +13,6 @@ class CleaningRobots extends Component {
 
   async componentDidMount() {
     const robots = await AfternoonHandler.getRobots();
-    console.log(robots);
     this.setState({
       robots: robots
     });

@@ -24,7 +24,6 @@ class CoffeeMachineSchedule extends Component {
   }
 
   scheduleCoffee = async () => {
-    console.log("scheduleCoffee called.");
     const updated = await MorningHandler.scheduleCoffee({
       coffeeMachineId: this.props.id,
       startTimestamp: this.state.startTimestamp,
@@ -34,7 +33,6 @@ class CoffeeMachineSchedule extends Component {
   }
 
   updateData = (data) => {
-    console.log("prepareCoffee.updateData called.");
     this.props.updateData(data);
   }
 

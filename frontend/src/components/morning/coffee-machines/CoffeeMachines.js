@@ -19,11 +19,9 @@ class CoffeeMachines extends Component {
   }
 
   updateData = (data) => {
-    console.log("Called update data on ",data);
     const state_list = Array.from(this.state.coffeeMachines);
     const item = state_list.filter(cm => {return cm.id == data.id})[0];
     const index = this.state.coffeeMachines.indexOf(item);
-    console.log("the index of item ",item," on array ", this.state.coffeeMachines ," is ",index);
     var new_list = this.state.coffeeMachines;
     new_list.splice(index, 1, data);
     this.setState({coffeeMachines: new_list});

@@ -19,7 +19,6 @@ class AirDiffuserDiffuse extends Component {
   }
 
   diffuseEssence = async () => {
-    console.log("diffuseEssence called.");
     const updated = await AfternoonHandler.startDiffusing({
       airDiffuserId: this.props.id,
       slot: this.state.slot
@@ -28,7 +27,6 @@ class AirDiffuserDiffuse extends Component {
   }
 
   updateData = (data) => {
-    console.log("diffuseEssence.updateData called.");
     this.props.updateData(data);
   }
 

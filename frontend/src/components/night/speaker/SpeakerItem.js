@@ -13,7 +13,6 @@ class SpeakerItem extends Component {
   }
 
   playSpeaker = async () => {
-    console.log("playSpeaker called.");
     const updated = await NightHandler.playSpeaker({
       speakerId: this.props.id
     });
@@ -21,7 +20,6 @@ class SpeakerItem extends Component {
   }
 
   stopSpeaker = async () => {
-    console.log("stopSpeaker called.");
     const updated = await NightHandler.stopSpeaker({
       speakerId: this.props.id
     });

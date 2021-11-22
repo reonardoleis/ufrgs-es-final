@@ -7,6 +7,7 @@ class CourtainSchedule extends Component {
     super(props);
     this.state = {
       startTimestamp: "07:00",
+      status: "OPENED",
       speed: "SLOW"
     };
   }
@@ -39,13 +40,18 @@ class CourtainSchedule extends Component {
     });
   }
 
-  scheduleCourtain = () => {
-    MorningHandler.scheduleCourtain({
-      id: parseInt(this.props.id),
+  scheduleCourtain = async () => {
+    const updated = await MorningHandler.scheduleCourtain({
+      courtainId: parseInt(this.props.id),
       startTimestamp: this.state.startTimestamp,
-      state: this.state.status,
-      speed: this.props.speed
+      courtainState: this.state.status,
+      courtainSpeed: this.state.speed
     });
+    this.updateData(updated);
+  }
+
+  updateData = (data) => {
+    this.props.updateData(data);
   }
 
   render(){

@@ -15,7 +15,6 @@ class MattressTemperature extends Component {
   }
 
   setTemperature = async () => {
-    console.log("setTemperature called.");
     const updated = await NightHandler.setTemperature({
       mattressId: this.props.id,
       targetTemperature: parseFloat(this.state.newTemperature)
@@ -24,7 +23,6 @@ class MattressTemperature extends Component {
   }
 
   updateData = (data) => {
-    console.log("scheduleCleaning.updateData called.");
     this.props.updateData(data);
   }
 

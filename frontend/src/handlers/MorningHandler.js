@@ -13,10 +13,9 @@ class MorningHandler {
   }
 
   static async scheduleCourtain(courtain) {
-    console.log("sending request...");
     await axios.post("http://localhost:3000/morning/courtain/schedule",courtain);
-    console.log("request has responded.");
-    return 
+    const res = await axios.get("http://localhost:3000/morning/courtain/"+courtain.courtainId);
+    return res.data;
   }
 
   static async prepareCoffee(prepare) {

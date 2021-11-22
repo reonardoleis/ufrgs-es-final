@@ -15,7 +15,6 @@ class CleaningRobotSchedule extends Component {
   }
 
   scheduleCleaning = async () => {
-    console.log("scheduleCleaning called.");
     const updated = await AfternoonHandler.scheduleCleaning({
       robotId: this.props.id,
       startTimestamp: this.state.startTimestamp
@@ -24,7 +23,6 @@ class CleaningRobotSchedule extends Component {
   }
 
   updateData = (data) => {
-    console.log("scheduleCleaning.updateData called.");
     this.props.updateData(data);
   }
 

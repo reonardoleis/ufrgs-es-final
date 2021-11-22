@@ -9,6 +9,10 @@ class CourtainItem extends Component {
     super(props);
   }
 
+  updateData = (data) => {
+    this.props.updateData(data);
+  }
+
   render(){
     return (
       <tr>
@@ -22,7 +26,7 @@ class CourtainItem extends Component {
           <button type="button" className="btn btn-icon btn-outline-info float-right" data-bs-toggle="modal" data-bs-target={"#courtain_schedule_"+this.props.id}>
             <BsClock/>
           </button>
-          <CourtainSchedule name={this.props.name} status={this.props.status} speed={this.props.speed} id={this.props.id}/>
+          <CourtainSchedule name={this.props.name} status={this.props.status} speed={this.props.speed} id={this.props.id} updateData={this.props.updateData}/>
         </td>
       </tr>
     );

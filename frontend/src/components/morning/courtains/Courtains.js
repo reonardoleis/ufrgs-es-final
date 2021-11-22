@@ -18,9 +18,18 @@ class Courtains extends Component {
     });
   }
 
+  updateData = (data) => {
+    const state_list = Array.from(this.state.courtains);
+    const item = state_list.filter(ad => {return ad.id == data.id})[0];
+    const index = this.state.courtains.indexOf(item);
+    var new_list = this.state.courtains;
+    new_list.splice(index, 1, data);
+    this.setState({courtains: new_list});
+  }
+
   render(){
     const elements = this.state.courtains.map(courtain => {
-      return <CourtainItem name={courtain.name} status={courtain.state} id={String(courtain.id)} schedules={courtain.schedule}/>
+      return <CourtainItem name={courtain.name} status={courtain.state} id={String(courtain.id)} schedules={courtain.schedule} speed={courtain.speed} updateData={this.updateData}/>
     });
     return (
       <div className="card">
