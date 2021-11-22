@@ -33,7 +33,7 @@ class AirDiffuser extends Component {
     });
     return (
       <div className="card">
-        <h3>Robôs de Limpeza</h3>
+        <h3>Difusores de Essência</h3>
         <table className="table">
           <thead>
             <tr>

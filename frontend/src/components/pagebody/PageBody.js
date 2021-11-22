@@ -3,6 +3,8 @@ import CleaningRobots from '../afternoon/cleaning-robots/CleaningRobots';
 import CoffeeMachines from '../morning/coffee-machines/CoffeeMachines';
 import Courtains from '../morning/courtains/Courtains';
 import AirDiffuser from '../afternoon/air-diffuser/AirDiffuser';
+import Mattresses from '../night/mattress/Mattresses';
+import Speakers from '../night/speaker/Speakers';
 
 import './style/pagebody.css';
 
@@ -25,8 +27,8 @@ class PageBody extends Component {
         card2 = <AirDiffuser/>
         break;
       case 'night':
-        card1 = <h1>TODO</h1>
-        card2 = <h1>TODO</h1>
+        card1 = <Mattresses/>
+        card2 = <Speakers/>
         break;
     }
     return (
