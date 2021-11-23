@@ -6,18 +6,26 @@ class Speaker {
         this.name = name;
         this.mattressId = mattressId;
         this.sleepQualitySensor = MattressRepository.find(this.mattressId).sleepQualitySensor;
+        this.interval = null;
         this.sounds = sounds;
+        this.isPlaying = false;
         this.currentSound = null;
     }
 
     play() {
+        this.isPlaying = true;
         this.computeBestSong();
-        setInterval(() => {
-            this.computeBestSong();
+        let interval = setInterval(() => {
+            if (this.isPlaying) {
+                this.computeBestSong()
+            } else {
+                clearInterval(interval);
+            }
         }, 100);
     }
 
     stop() {
+        this.isPlaying = false;
         this.currentSound = null;
     }
 
