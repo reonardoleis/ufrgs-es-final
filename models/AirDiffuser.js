@@ -27,7 +27,7 @@ class AirDiffuser {
 
          let estimatedTime = 1000 * 30;
 
-         this.estimatedTime = (new Date((+ new Date()) + estimatedTime)).toLocaleString();
+         this.estimatedTime = (new Date((+ new Date()) + estimatedTime)).toLocaleString("pt-BR");
 
          setTimeout(() => {
              this.currentDiffusion = null;
@@ -39,7 +39,7 @@ class AirDiffuser {
 
      scheduleDiffusing(slot, startTimestamp) {
          this.schedule.add(new AirDiffuserScheduleItem(startTimestamp, this.essences[slot - 1].id, this), startTimestamp);
-         return (new Date(startTimestamp)).toLocaleString();
+         return (new Date(startTimestamp)).toLocaleString("pt-BR");
      }
 
      cloneWithoutCircularReferences() {

@@ -43,7 +43,7 @@ class MorningController {
         try {
             let courtain = CourtainRepository.find(req.body.courtainId);
             courtain.scheduleStateWithSpeed(req.body.courtainState, req.body.courtainSpeed, req.body.startTimestamp);
-            return res.json({ message: `courtain scheduled to open at ${(new Date(req.body.startTimestamp)).toLocaleString()} with ${req.body.courtainSpeed} speed`});
+            return res.json({ message: `courtain scheduled to open at ${(new Date(req.body.startTimestamp)).toLocaleString("pt-BR")} with ${req.body.courtainSpeed} speed`});
         } catch (e) {
             return res.status(e.code).json(e);
         }

@@ -29,6 +29,7 @@ class CleaningRobotItem extends Component {
       <tr>
         <td className="mid-align">{"Robô " + this.props.id}</td>
         <td className="mid-align">{this.props.status == "IDLE" ? "Parado" : "Limpando"}</td>
+        <td className="mid-align">{this.props.estimatedTime || "N/A"}</td>
         <td>
           <button type="button" className="btn btn-icon btn-outline-info float-right" data-bs-toggle="modal" data-bs-target={"#robot_"+this.props.id}>
             <BsClock/>

@@ -15,9 +15,14 @@ class CleaningRobotSchedule extends Component {
   }
 
   scheduleCleaning = async () => {
+    const hours_minutes = this.state.startTimestamp.split(":").map(el => {return parseInt(el) * 1000});
+    var startTimestamp = (+ (new Date()).setHours(0,0,0,0)) + hours_minutes[0] * 3600 + hours_minutes[1] * 60;
+    if (startTimestamp <= (+ new Date())) {
+      startTimestamp = (new Date(startTimestamp)).setDate(new Date(startTimestamp).getDate() + 1);
+    }
     const updated = await AfternoonHandler.scheduleCleaning({
       robotId: this.props.id,
-      startTimestamp: this.state.startTimestamp
+      startTimestamp: startTimestamp
     });
     this.updateData(updated);
   }

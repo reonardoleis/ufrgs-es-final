@@ -21,7 +21,7 @@ class AfternoonController {
         try {
             let robot = CleaningRobotRepository.find(req.body.robotId);
             let finishesAt = robot.startCleaning();
-            return res.json({ message: `cleaning started and it will finish at ${(new Date(finishesAt)).toLocaleString()}` })
+            return res.json({ message: `cleaning started and it will finish at ${(new Date(finishesAt)).toLocaleString("pt-BR")}` })
         } catch (e) {
             return res.status(e.code).json(e)
         }
@@ -31,7 +31,7 @@ class AfternoonController {
         try {
             let robot = CleaningRobotRepository.find(req.body.robotId);
             robot.scheduleCleaning(req.body.startTimestamp);
-            return res.json({ message: `cleaning scheduled to start at ${(new Date(req.body.startTimestamp)).toLocaleString()}` })
+            return res.json({ message: `cleaning scheduled to start at ${(new Date(req.body.startTimestamp)).toLocaleString("pt-BR")}` })
         } catch (e) {
             return res.status(e.code).json(e);
         }
