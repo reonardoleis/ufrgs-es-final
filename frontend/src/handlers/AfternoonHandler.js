@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-class MorningHandler {
+class AfternoonHandler {
 
   static async getRobots() {
     const res = await axios.get("http://localhost:3000/afternoon/robot");
@@ -38,4 +38,4 @@ class MorningHandler {
 
 }
 
-export default MorningHandler;
+export default AfternoonHandler;
