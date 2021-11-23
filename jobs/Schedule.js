@@ -33,6 +33,7 @@ class Schedule {
         setTimeout(() => {
             this.finish(id);
             Logger.log(`starting scheduled item: ${JSON.stringify(scheduleItem)}`);
+            scheduleItem.ref.makeCoffee(scheduleItem.capsule);
         }, startIn);
     }
 

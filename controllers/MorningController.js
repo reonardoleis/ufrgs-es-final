@@ -77,7 +77,7 @@ class MorningController {
     getCoffeeMachineData(req, res) {
         try {
             let coffeeMachine = CoffeeMachineRepository.find(req.params.id);
-            return res.json(coffeeMachine);
+            return res.json(coffeeMachine.cloneWithoutCircularReferences());
         } catch (e) {
             return res.status(e.code).json(e);
         }

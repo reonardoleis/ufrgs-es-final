@@ -40,10 +40,23 @@ class CoffeeMachine {
             return false;
         }
 
-        this.schedule.add(new CoffeeMachineScheduleItem(startTimestamp, this.capsules[slot - 1]), startTimestamp);
+        this.schedule.add(new CoffeeMachineScheduleItem(this, startTimestamp, slot), startTimestamp);
 
-        this.capsules.splice(slot - 1, 1);
         return new Date(startTimestamp + (1000 * 60 * RandomUtils.randomBetween(4, 6))).toLocaleString();
+    }
+    
+    cloneWithoutCircularReferences() {
+        let clone = new CoffeeMachine(this.id, this.name, this.capsules);
+        clone.schedule = this.schedule.scheduleItems.map(item => {
+            let newItem = new CoffeeMachineScheduleItem();
+            newItem.id = item.id;
+            newItem.startTimestamp = item.startTimestamp;
+            return newItem;
+        });
+        clone.currentCapsule = this.currentCapsule;
+        clone.estimatedTime = this.estimatedTime;
+
+        return clone;
     }
 }
 
