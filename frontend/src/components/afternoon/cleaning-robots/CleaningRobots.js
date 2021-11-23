@@ -36,7 +36,12 @@ class CleaningRobots extends Component {
 
   render(){
     const elements = this.state.robots.map(robot => {
-      return <CleaningRobotItem status={robot.state} id={String(robot.id)} schedules={robot.schedule} updateData={this.updateData}/>
+      return <CleaningRobotItem 
+        status={robot.state} 
+        id={String(robot.id)} 
+        schedules={robot.schedule} 
+        estimatedTime={robot.finishesAt == null ? "N/A" : (new Date(robot.finishesAt)).toLocaleString("pt-BR")} 
+        updateData={this.updateData}/>
     });
     return (
       <div className="card">
@@ -46,6 +51,7 @@ class CleaningRobots extends Component {
             <tr>
               <th scope="col">Nome</th>
               <th scope="col">Status</th>
+              <th scope="col">Fim Estimado</th>
               <th scope="col" className="col-md-2 text-right">Ações</th>
             </tr>
           </thead>

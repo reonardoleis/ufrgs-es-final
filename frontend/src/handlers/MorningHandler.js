@@ -13,13 +13,16 @@ class MorningHandler {
   }
 
   static async scheduleCourtain(courtain) {
+    console.log("scheduling: ",courtain);
     await axios.post("http://localhost:3000/morning/courtain/schedule",courtain);
     const res = await axios.get("http://localhost:3000/morning/courtain/"+courtain.courtainId);
+    console.log("response: ",res);
+    console.log("response body: ",res.body);
     return res.data;
   }
 
   static async prepareCoffee(prepare) {
-    let makeRes = await axios.post("http://localhost:3000/morning/coffee-machine/make",prepare);
+    await axios.post("http://localhost:3000/morning/coffee-machine/make",prepare);
     const res = await axios.get("http://localhost:3000/morning/coffee-machine/"+prepare.coffeeMachineId);
     return res.data;
   }

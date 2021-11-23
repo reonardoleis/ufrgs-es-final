@@ -26,7 +26,7 @@ class CoffeeMachine {
         this.currentCapsule = capsule;
 
         let estimatedTime =  1000 * 60 * RandomUtils.randomBetween(4, 6);
-        this.estimatedTime = new Date(+ (new Date()) + estimatedTime).toLocaleString();
+        this.estimatedTime = new Date(+ (new Date()) + estimatedTime).toLocaleString("pt-BR");
         setTimeout(() => {
             this.currentCapsule = null;
             this.estimatedTime = null;
@@ -42,7 +42,8 @@ class CoffeeMachine {
 
         this.schedule.add(new CoffeeMachineScheduleItem(this, startTimestamp, slot), startTimestamp);
 
-        return new Date(startTimestamp + (1000 * 60 * RandomUtils.randomBetween(4, 6))).toLocaleString();
+        this.capsules.splice(slot - 1, 1);
+        return new Date(startTimestamp + (1000 * 60 * RandomUtils.randomBetween(4, 6))).toLocaleString("pt-BR");
     }
     
     cloneWithoutCircularReferences() {

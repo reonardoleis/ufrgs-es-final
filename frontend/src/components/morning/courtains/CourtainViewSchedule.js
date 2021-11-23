@@ -11,13 +11,9 @@ class CourtainViewSchedule extends Component {
       "SLOW": "Devagar",
       "MEDIUM": "Média",
       "FAST": "Rápida"
-    }
-    const items = this.props.schedules.map(schedule => {
-      <tr>
-        <td>{schedule.startTimestamp}</td>
-        <td>{schedule.state == "OPENED" ? "Abrir" : "Fechar"}</td>
-        <td>{speeds[schedule.speed]}</td>
-      </tr>
+    };
+    const items = this.props.schedules.map((schedule) => {
+      return <tr><td>{(new Date(schedule.startTimestamp)).toLocaleString("pt-BR")}</td><td>{schedule.state == "OPENED" ? "Abrir" : "Fechar"}</td><td>{speeds[schedule.speed]}</td></tr>;
     });
     return (
       <div className="modal" tabindex="-1" id={"courtain_view_"+this.props.id}>
