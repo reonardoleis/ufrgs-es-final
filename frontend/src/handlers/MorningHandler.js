@@ -13,11 +13,8 @@ class MorningHandler {
   }
 
   static async scheduleCourtain(courtain) {
-    console.log("scheduling: ",courtain);
     await axios.post("http://localhost:3000/morning/courtain/schedule",courtain);
     const res = await axios.get("http://localhost:3000/morning/courtain/"+courtain.courtainId);
-    console.log("response: ",res);
-    console.log("response body: ",res.body);
     return res.data;
   }
 

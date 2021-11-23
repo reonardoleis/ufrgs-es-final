@@ -23,17 +23,15 @@ class CoffeeMachinePrepare extends Component {
 
   prepareCoffee = async () => {
     try {
-    const updated = await MorningHandler.prepareCoffee({
-      coffeeMachineId: this.props.id,
-      slot: this.state.slot
-    });
-    return this.updateData(updated);
-  } catch (e) {
-    this.notify(e.response.data.message);
-    return
-  }
-  
-   
+      const updated = await MorningHandler.prepareCoffee({
+        coffeeMachineId: this.props.id,
+        slot: this.state.slot
+      });
+      return this.updateData(updated);
+    } catch (e) {
+      this.notify(e.response.data.message);
+      return
+    }
   }
 
   updateData = (data) => {
